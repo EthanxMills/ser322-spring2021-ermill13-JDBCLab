@@ -1,8 +1,6 @@
 package src.ser322;
 import java.sql.*;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 
 class ser322JDBCLab{
     
@@ -18,8 +16,12 @@ class ser322JDBCLab{
             
             Statement stmnt = con.createStatement();//Create Statement
 
-            String queryHolder = "SELECT empno,ename,dept.DNAME from emp,dept WHERE emp.deptno=dept.DEPTNO";
+            String queryHolder = "SELECT empno,ename,dept.DNAME from emp,dept WHERE emp.deptno=dept.DEPTNO";//Query to be ran for Act 1.1
             ResultSet rSet = stmnt.executeQuery(queryHolder);//Execute whatever is in the query string and store in rSet
+
+            while(rSet.next()){
+                System.out.println(rSet.getInt(1) + " | " + rSet.getString(2) + " | " + rSet.getString(3));//Adding space with border to allign the columns 
+            }
 
 
         }catch(Exception exception){
