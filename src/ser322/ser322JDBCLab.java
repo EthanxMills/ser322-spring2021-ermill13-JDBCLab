@@ -26,12 +26,25 @@ class ser322JDBCLab{
             switch(query){
                 case "query1":
                     query1(con);
+                    break;
                 case "query2":
-                    query2(con);
+                    String Dept = args[5];
+                    int DeptNo = Integer.parseInt(Dept);
+                    query2(con, DeptNo);
+                    break;
                 case "dml1":
-                    query1(con);//CHANGE TO dml1
+                    String CustomerID = args[5];
+                    int CID = Integer.parseInt(CustomerID);
+                    String ProductID = args[6];
+                    int PID = Integer.parseInt(ProductID);
+                    String name = args[7];
+                    String quantity = args[8];
+                    int Q = Integer.parseInt(quantity);
+                    dml1(con,CID,PID,name, Q);
+                    break;
                 default:
-                    System.out.println("Invalid Query Try Again");   
+                    System.out.println("Invalid Query Try Again");
+                    break;   
             }
 
         }catch(Exception exception){
@@ -43,7 +56,7 @@ class ser322JDBCLab{
         try{
             Statement stmnt = con.createStatement();//Create Statement
 
-            String queryHolder = "SELECT empno,ename,dept.DNAME from emp,dept WHERE emp.deptno=dept.DEPTNO";//Query to be ran for Act 1.1
+            String queryHolder = "SELECT emp.empno,emp.ename,dept.DNAME from emp,dept WHERE emp.deptno=dept.DEPTNO";//Query to be ran for Act 1.1
             ResultSet rSet = stmnt.executeQuery(queryHolder);//Execute whatever is in the query string and store in rSet
 
             while(rSet.next()){
@@ -55,11 +68,13 @@ class ser322JDBCLab{
         }
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    protected static void query2(Connection con){
+    protected static void query2(Connection con, int DeptNo){
         try{
             
-            String prepStat = "select dept.DNAME,customer.NAME,product.PRICE from product,customer,dept where product.MADE_BY and product.PRODID=customer.PID;";
-            PreparedStatement pStat=con.prepareStatement(prepStat);
+            
+            String prepStat = "select dept.DNAME,customer.NAME,product.PRICE from product,customer,dept where product.MADE_BY=? and product.PRODID=customer.PID";
+            PreparedStatement pStat=con.prepareStatement(prepStat);//Back check to work in DeptNo
+            pStat.setInt(1,DeptNo);
 
             ResultSet rSet = pStat.executeQuery();//Execute whatever is in the query string and store in rSet
 
@@ -73,11 +88,17 @@ class ser322JDBCLab{
 
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    protected static void dml1(Connection con){
+    protected static void dml1(Connection con, int CID, int PID, String name, int quantity){
         try{
             
-
+            String prepStat = "insert dept.DNAME,customer.NAME,product.PRICE from product,customer,dept where product.MADE_BY=? and product.PRODID=customer.PID";
+            PreparedStatement pStat=con.prepareStatement(prepStat);
             
+
+            pStat.executeUpdate();//Execute whatever is in the query string and store in rSet
+
+            System.out.println("Success!");
+            con.close();
         }catch(SQLException exception){
             exception.printStackTrace();
         }
