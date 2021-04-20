@@ -2,7 +2,7 @@ package src.ser322;
 import java.sql.*;
 
 
-class ser322JDBCLab{
+class JDBCLab{
     
     public static void main(String[] args){
         try{

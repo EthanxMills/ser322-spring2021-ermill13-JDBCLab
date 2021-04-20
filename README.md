@@ -1,6 +1,8 @@
 # ser322-spring2021-ermill13-JDBCLab
 ### Repo For Ethan Miller's JDBC Lab For SER 322
 
+## How to Build the Source Code
+
 ## Resources used For Assignment:
 ###### (I know we've been doing so many examples in class but it's so hard for me online I'm sorry, I was lost)
 - [Driver Download](https://dev.mysql.com/downloads/connector/j/)
