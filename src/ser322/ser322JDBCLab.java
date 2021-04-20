@@ -91,9 +91,13 @@ class ser322JDBCLab{
     protected static void dml1(Connection con, int CID, int PID, String name, int quantity){
         try{
             
-            String prepStat = "insert dept.DNAME,customer.NAME,product.PRICE from product,customer,dept where product.MADE_BY=? and product.PRODID=customer.PID";
+            String prepStat = "insert into CUSTOMER " + "VALUES(?,?,?,?)";
             PreparedStatement pStat=con.prepareStatement(prepStat);
-            
+            pStat.setInt(1, CID);
+            pStat.setInt(2, PID);
+            pStat.setString(3, name);
+            pStat.setInt(4, quantity);
+
 
             pStat.executeUpdate();//Execute whatever is in the query string and store in rSet
 
