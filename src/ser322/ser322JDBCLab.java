@@ -4,14 +4,37 @@ import java.sql.*;
 
 class ser322JDBCLab{
     
-    
-    public void query1(){//creation for query1, I downloaded the JDBC Driver From SQL Community so hope this works
+    public static void main(String[] args){
         try{
-            Class.forName("com.mysql.jdbc.Driver");//Line to Load the Driver from MySQL Community
+        Connection con = null;
+        String url = args[0], user = args[1], pwd = args[2], driver = args[3], query = args[4];
+            try{
 
-            Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/jdbclab","root","romanmiller"); 
-            //The LocalInstance made by Workbench was all weird so I made a new one, should connect
-            
+                Class.forName(driver);
+                con = DriverManager.getConnection(url, user, pwd);
+
+            }catch(Exception exception){
+                System.out.println(exception);
+            }
+
+            switch(query){
+                case "query1":
+                    query1(con);
+                case "query2":
+                    query2(con);
+                case "dml1":
+                    query1(con);//CHANGE TO dml1
+                default:
+                    System.out.println("Invalid Query Try Again");   
+            }
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+        }
+    }
+    
+    protected static void query1(Connection con){//creation for query1, assuming args are given as in the doc I can pass the connect
+        try{
             Statement stmnt = con.createStatement();//Create Statement
 
             String queryHolder = "SELECT empno,ename,dept.DNAME from emp,dept WHERE emp.deptno=dept.DEPTNO";//Query to be ran for Act 1.1
@@ -20,12 +43,13 @@ class ser322JDBCLab{
             while(rSet.next()){
                 System.out.println(rSet.getInt(1) + " | " + rSet.getString(2) + " | " + rSet.getString(3));//Adding space with border to allign the columns 
             }
-        }catch(Exception exception){
-            System.out.println(exception);
+            con.close();
+        }catch(SQLException exception){
+            exception.printStackTrace();
         }
     }
 
-    public void query2(){
-        
+    protected static void query2(Connection con){
+
     }
 }
