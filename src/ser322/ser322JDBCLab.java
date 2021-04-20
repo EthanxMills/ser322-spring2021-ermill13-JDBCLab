@@ -38,7 +38,7 @@ class ser322JDBCLab{
             exception.printStackTrace();
         }
     }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     protected static void query1(Connection con){//creation for query1, assuming args are given as in the doc I can pass the connect
         try{
             Statement stmnt = con.createStatement();//Create Statement
@@ -54,11 +54,11 @@ class ser322JDBCLab{
             exception.printStackTrace();
         }
     }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     protected static void query2(Connection con){
         try{
             
-            String prepStat = "select dept.DNAME,customer.NAME,product.PRICE from product,customer,dept where product.MADE_BY=? and product.PRODID=customer.PID;";
+            String prepStat = "select dept.DNAME,customer.NAME,product.PRICE from product,customer,dept where product.MADE_BY and product.PRODID=customer.PID;";
             PreparedStatement pStat=con.prepareStatement(prepStat);
 
             ResultSet rSet = pStat.executeQuery();//Execute whatever is in the query string and store in rSet
@@ -71,5 +71,15 @@ class ser322JDBCLab{
             exception.printStackTrace();
         }
 
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    protected static void dml1(Connection con){
+        try{
+            
+
+            
+        }catch(SQLException exception){
+            exception.printStackTrace();
+        }
     }
 }
